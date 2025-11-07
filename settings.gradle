@@ -1,0 +1,24 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+
+    plugins {
+        id("org.jetbrains.kotlin.jvm") version "1.9.10"
+        id("org.jetbrains.kotlin.multiplatform") version "1.9.10"
+    }
+}
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.name = "watchface-dwf-validator"
+include(":dwf-validator")
+include(":dwf-validator-cli")

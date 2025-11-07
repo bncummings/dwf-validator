@@ -1,0 +1,41 @@
+plugins {
+    id("org.jetbrains.kotlin.jvm")
+    id("application")
+}
+
+dependencies {
+    implementation 'commons-cli:commons-cli:1.5.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation project(':dwf-validator')
+    testImplementation 'junit:junit:4.13.2'
+}
+
+application {
+    mainClass = 'com.google.wear.watchface.validator.cli.AppKt'
+}
+
+jar {
+    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+
+    from {
+        configurations.runtimeClasspath.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+
+    manifest {
+        attributes 'Main-Class': application.mainClass
+    }
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17)) // Set to 17 to match Kotlin
+    }
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+    kotlinOptions {
+        jvmTarget = "17" // Use a supported version like 17 or 11
+    }
+}
